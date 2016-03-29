@@ -108,7 +108,10 @@ def model_instance_diff(old, new):
             new_value = None
 
         if old_value != new_value:
-            diff[field.name] = (smart_text(old_value), smart_text(new_value))
+            if old_value == u'False' and new_value == u'':
+                pass  # Don't log this
+            else:
+                diff[field.name] = (smart_text(old_value), smart_text(new_value))
 
     if len(diff) == 0:
         diff = None
